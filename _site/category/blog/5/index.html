@@ -1,0 +1,286 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+  <title>Random Thoughts and Geekery</title>
+
+    
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed" />
+<link rel="alternate" type="application/atom+xml" title="Atom 1.0"
+href="/feed/atom" />
+<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/shCore.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/shThemeDefault.css" type="text/css" media="screen"/>
+
+<script type="text/javascript" src="/js/shCore.js"></script>
+<script type="text/javascript" src="/js/shBrushBash.js"></script>
+<script type="text/javascript" src="/js/shBrushPerl.js"></script>
+<script type="text/javascript" src="/js/shBrushPython.js"></script>
+<script type="text/javascript" src="/js/shBrushSql.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.all()
+</script>
+
+
+  </head>
+  <body>
+    <div id="header">
+        
+  <h1><a href="/"><span style="color:#333333">Random <span style="color:#cc3333">Thoughts</span> and Geekery</span></a></h1>
+<div id="description">by Ant Zucaro</div>
+
+
+    </div> <!-- end header -->
+
+    <div id="sidebar">
+        
+  <ul id="nav">
+   <li><a href="/about.html">about</a></li>
+   <li><a href="/family">family</a></li>
+   <li><a href="/photography">photography</a></li>
+   <li><a href="/archive">archive</a></li>
+   <li><a href="/feed">feed</a></li>
+</ul>
+
+
+    </div> <!-- end sidebar -->
+
+    <div id="main">
+        
+  
+<div class="blog_post">
+  <a name="abcde---a-better-cd-encoder"></a>
+  <h2 class="blog_post_title"><a href="/2010/11/abcde-a-better-cd-encoder/" rel="bookmark" title="Permanent Link to ABCDE - A Better CD Encoder">ABCDE - A Better CD Encoder</a></h2>
+  <div class="timestamp">
+     <small>November 04, 2010 at 11:07 AM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/geekery'>geekery</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>I'm a big fan of automating things. In almost all aspects of my life you can find an example of me trying to free up some of my time by eliminating the mundane, repeatable steps with some automated process (think auto-billpay and programmable coffee makers). This is even more evident in my computer work - I don't want to be typing in the same commands over and over! For one, all of that typing takes time, and time is something of which I have too little. For two, me having to manually type or click things out each time exposes whatever I'm doing to human error.</p>
+<p>In this post I'd like to talk about one example of automation that I've used to save a lot of time: archiving of my CDs to MP3. I did this about two summers back when I was trying to archive my entire collection to an external hard drive I'd just bought (over 300 CDs between myself and my wife). My goal was to rip them all with:
+<ul>
+    <li>The same level of quality (the highest quality variable bitrate MP3)</li>
+    <li>The same folder structure (&lt;Artist&gt;/&lt;Album&gt;/&lt;Artist&gt; - &lt;Track Number&gt; - &lt;Track Name&gt;.mp3)</li>
+    <li>Meaningful meta-info (IDv3 tags)</li>
+    <li>Playlists in the album folder (M3U files)</li>
+</ul>
+I started with a program called <a href="http://en.wikipedia.org/wiki/K3b">K3B</a> that was more than adequate in terms of my goals above, but it just took too long. After about 10 CDs I realized that the amount time to rip this way wasn't feasible (even with two CD drives to work with in the tower I was using). To Google I went, eventually finding a neat little program called ABCDE that seemed to fit the bill.
+<h2>Enter ABCDE</h2>
+<a href="http://code.google.com/p/abcde/">ABCDE</a> is a deceptively simple <a href="http://en.wikipedia.org/wiki/Bash_%28Unix_shell%29">Bash</a> script that packs a whole host of features: Mp3/FLAC/Ogg ripping, playlists, CDDB lookups, and file tagging. What made me choose it over everything else wasn't its feature set per se, but rather that it can be customized and simplified such that you don't have to type out your preferences every time; you essentially set up your preferences in a configuration file <em><strong>once</strong></em>, then forget about them! In the end I had my setup customized so that all I needed to do to rip my CDs was one of the following commands (depending on which drive the CD was loaded, of course):</p>
+<pre class="brush:bash;">
+ripcd
+ripdvd
+</pre>
+
+<p>How did I get to that point, you ask? Configuration, of course! Read on...
+<h2>Configuring ABCDE</h2>
+After you install it (which I won't cover here), ABCDE stores its default configuration in the appropriately named <em>/etc/abcde.conf</em>.  I started off by editing this file to make sure that it did things exactly the way I wanted (see my goals above).  Here's an annotated guide of what I changed in the default setup.
+<h3>Allow track padding</h3>
+The visual presentation of my music files is important to me. This includes how they are sorted when they are sitting in their respective folders - I wanted them to be in the folder in the same order as they are in the album! By default ABCDE doesn't pad their track numbers (should you put them in the filename), which leads to track number "10" being shown before track number "1" if the track number is the first significant difference to the file names. Padding the track names solves this issue (it makes track 1 appear with "01" in the filename) and provides me a consistent representation in my file browser. To enable this, make this change in your config:</p>
+<pre class="brush:bash;">PADTRACKS=y</pre>
+
+<h3>MP3 Encoding Parameters</h3>
+
+<p>To get the highest quality encoding out of ABCDE I have the following LAME option (LAME is what ABCDE uses to create MP3s):</p>
+<pre class="brush:bash;">LAMEOPTS=&quot;-b 320&quot;</pre>
+
+<p>Let me say here that encoding parameters are extremely subjective. Some folks want lossless,  while others want huge space savings. What I want is the best possible  quality while staying within the constraints of the MP3 file format. I  do that because I think lossless (FLAC) just takes up too much space. I'm also lazy in that I don't  want to convert to MP3 if I have it archived in a different format. If you are interested in exploring other MP3 options for ABCDE here, check out the <a href="http://wiki.hydrogenaudio.org/index.php?title=LAME">Hydrogenaudio Wiki</a> for a pretty succinct breakdown of the other LAME options.
+<h3>Output Location</h3>
+When I rip a CD, I want all of the output to go to a common location. That way I know where to look when (not if) things go wrong! Change the following options to specify where you'd like your files to go. Here I'm storing them in my home directory.</p>
+<pre class="brush:bash;">OUTPUTDIR=/home/ant
+WAVOUTPUTDIR=/home/ant/tmp</pre>
+
+<p>You may want to change up your temporary directory to go to a more <em>temporary</em> location like /tmp. For me I just keep it there.
+<h3>Output Format</h3>
+Here's where things get fun. Everyone has their own file naming scheme, and rightfully so. They are your files after all, right? I like to have the artist name as a top level directory, followed by the album name in another directory under that. For the actual music files (which get placed in the album folder), I like to - again - put the artist in the name in case I want to copy just those files to a USB drive. Here is the setting to make ABCDE create this structure:</p>
+<pre class="brush:bash;">OUTPUTFORMAT='${ARTISTFILE}/${ALBUMFILE}/${ARTISTFILE} - ${TRACKNUM} - ${TRACKFILE}'
+
+VAOUTPUTFORMAT='${ARTISTFILE}/${ALBUMFILE}/${ARTISTFILE} - ${TRACKNUM} - ${TRACKFILE}'</pre>
+
+<p>Note that there are two lines there. The first line is for normal albums with only one artist. The second is for music compilations where you have several different artists on the same CD. This is one area that I wish ABCDE did a little better - ideally I'd like to be able to specify my own "album artist" name instead of having folders for each artist on the CD, but I have another solution for that which I'll cover in another post. For now I'm content with that flaw because I rarely purchase compilations.
+<h3>Playlists</h3>
+As I said before, I want M3U playlists automatically whenever I rip a CD. This gives me a simple, one-click solution to playing an album without having to mess with bad sorting in whatever music player I'm using at the time (they all seem to mess it up). First, use this option to define the format of the M3U playlist. Here I am saying to create the file with the album as it's name, to be stored in the album directory:</p>
+<pre class="brush:bash;">PLAYLISTFORMAT='${ARTISTFILE}/${ALBUMFILE}/${ALBUMFILE}.m3u'
+
+PLAYLISTFORMAT='${ARTISTFILE}/${ALBUMFILE}/${ALBUMFILE}.m3u'
+
+</pre>
+
+<p>Next, you need to tell ABCDE to actually create the playlist when you rip a CD (it doesn't do this by default). Add this to do that:</p>
+<pre class="brush:bash;">ACTIONS=cddb,read,encode,tag,move,playlist,clean</pre>
+
+<p>Note that there's a lot of other stuff going on before the playlist generation - that's intended.
+<h3>Give Me My Space!</h3>
+By default ABCDE converts spaces and forward slashes to underscores. I'm fine with the latter, but having underscore in the filename where a space should be is endlessly annoying to me ("Pink Floyd - 03 - Time.mp3" looks much better than "Pink_Floyd_-<em>03</em>-_Time.mp3," don't you think?). It's 2010 for goodness sake! Computers have evolved to be able to handle spaces in file names! Replace the "mungefilename" function with this one to keep your spaces:</p>
+<pre class="brush:bash;">mungefilename ()
+{
+ echo &quot;$@&quot; | sed s,:,\ -,g | tr /\* _+ | tr -d \'\&quot;\?\[:cntrl:\]
+}</pre>
+
+<h3>Setting Up Aliases</h3>
+
+<p>As I mentioned before, when I was using ABCDE heavily two summers ago I had aliases set up for each physical CD drive on my machine. If you don't have two drives, don't worry about this. If you do, and you think you'd get annoyed or tired of typing out which device from which to rip, define these aliases and put them in your ~/.bashrc. You'll want to substitute your actual device names , of course (mine are /dev/dvd and /dev/cdrw):</p>
+<pre class="brush:bash;">alias ripcd='abcde -d /dev/cdrw'
+
+alias ripdvd='abcde -d /dev/dvd'</pre>
+<h2>All Together Now</h2>
+Okay, so now that you have the configuration, let me show you how it looks in practice. Here I've put a CD (Fall Out Boy's worst CD thus far, IMO)  in my CDRW drive and used my alias to start ABCDE. What appears first is the matching CDDB entries:
+<p style="text-align: left;"></p>
+
+<div class="wp-caption aligncenter" style="width: 682px"><a href="http://media.antzucaro.com/uploads/2010/11/abcde_1.jpg"><img class="size-full wp-image-418 " title="After executing &quot;ripcd&quot;" src="http://media.antzucaro.com/uploads/2010/11/abcde_1.jpg" alt="After executing &quot;ripcd&quot;" width="682" height="400" /></a><p class="wp-caption-text">After executing &quot;ripcd&quot;</p></div>
+
+<p style="text-align: left;">After reviewing which entry looks like the best fit I choose #2 (mainly because it is listed as "rock" and not "misc"):</p>
+<p style="text-align: left;"></p>
+
+<div class="wp-caption aligncenter" style="width: 682px"><a href="http://media.antzucaro.com/uploads/2010/11/abcde_2.jpg"><img class="size-full wp-image-419 " title="Choosing the second entry" src="http://media.antzucaro.com/uploads/2010/11/abcde_2.jpg" alt="Choosing the second entry" width="682" height="400" /></a><p class="wp-caption-text">Choosing the second entry</p></div>
+
+<p style="text-align: left;">I then answer a couple of questions - do I want to edit the CDDB entry (not this time, but you can with your editor of choice) and is this CD multi-artist (no again) - and it starts ripping:</p>
+<p style="text-align: center;"></p>
+
+<div class="wp-caption aligncenter" style="width: 682px"><a href="http://media.antzucaro.com/uploads/2010/11/abcde_3.jpg"><img class="size-full wp-image-420 " title="Ripping started" src="http://media.antzucaro.com/uploads/2010/11/abcde_3.jpg" alt="Ripping started" width="682" height="400" /></a><p class="wp-caption-text">Ripping started</p></div>
+
+<p style="text-align: left;">When everything is done ABCDE will happily drop you back to your command prompt. Here I'm inspecting the files created after the rip finished. All looks well!</p>
+<p style="text-align: center;"></p>
+
+<div class="wp-caption aligncenter" style="width: 717px"><a href="http://media.antzucaro.com/uploads/2010/11/abcde_4.jpg"><img class="size-full wp-image-421 " title="Rip/encode done!" src="http://media.antzucaro.com/uploads/2010/11/abcde_4.jpg" alt="Rip/encode done!" width="717" height="441" /></a><p class="wp-caption-text">Rip/encode done!</p></div>
+
+<h2>Conclusion</h2>
+
+<p>Well I hope you've enjoyed this visual and textual tour of what I consider to be a great ripping program: ABCDE. I enjoy automating things in my life, and this handy (and simple) script fits the bill nicely!</p>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2010/11/abcde-a-better-cd-encoder/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="layla-potd-11/04"></a>
+  <h2 class="blog_post_title"><a href="/family/2010/11/layla-potd-1104/" rel="bookmark" title="Permanent Link to Layla POTD 11/04">Layla POTD 11/04</a></h2>
+  <div class="timestamp">
+     <small>November 04, 2010 at 08:27 AM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/family'>family</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>Let's go Hokies! Big game tonight!</p>
+<div class="wp-caption aligncenter" style="width: 373px"><a href="http://media.antzucaro.com/uploads/2010/11/wpid-IMG_20101104_080832.jpg"><img title="Let's go Hokies!" src="http://media.antzucaro.com/uploads/2010/11/wpid-IMG_20101104_080832.jpg" alt="Let's go Hokies!" width="373" height="499" /></a><p class="wp-caption-text">Let&#39;s go Hokies!</p></div>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/family/2010/11/layla-potd-1104/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="xonotic-player-interview:-edong23"></a>
+  <h2 class="blog_post_title"><a href="/2010/10/xonotic-player-interview-edong23/" rel="bookmark" title="Permanent Link to Xonotic player interview: Edong23">Xonotic player interview: Edong23</a></h2>
+  <div class="timestamp">
+     <small>October 30, 2010 at 07:23 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/xonotic'>xonotic</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>Here's another Xonotic player interview for your viewing pleasure! This one is with a regular on the HOCTF scene: Edong23. We talk about his affection for the laser, the servers he operates, and his views on the upcoming Xonotic release. What I really appreciate in this interview (among the others I've done) is his candor. I really like the honesty I'm seeing in this community, because so much depends on transparency! I hope you enjoy.</p>
+<p style="text-align: center;"><object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="640" height="385" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://www.youtube.com/v/AgMm9raM70c?fs=1&amp;hl=en_US" /><param name="allowfullscreen" value="true" /><embed type="application/x-shockwave-flash" width="640" height="385" src="http://www.youtube.com/v/AgMm9raM70c?fs=1&amp;hl=en_US" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2010/10/xonotic-player-interview-edong23/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="fangs-in-rtc"></a>
+  <h2 class="blog_post_title"><a href="/2010/10/fangs-in-rtc/" rel="bookmark" title="Permanent Link to Fangs in RTC">Fangs in RTC</a></h2>
+  <div class="timestamp">
+     <small>October 29, 2010 at 07:38 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/wandering-around'>wandering around</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>You never know what you're going to find in Reston Town Center around Halloween:</p>
+<div class="wp-caption aligncenter" style="width: 373px"><a href="http://media.antzucaro.com/uploads/2010/10/wpid-IMG_20101029_120913.jpg"><img style="display: block;" title="Mmm, blood" src="http://media.antzucaro.com/uploads/2010/10/wpid-IMG_20101029_120913.jpg" alt="Mmm, blood" width="373" height="499" /></a><p class="wp-caption-text">Mmm, blood</p></div>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2010/10/fangs-in-rtc/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="xonotic-player-interview:-kojn"></a>
+  <h2 class="blog_post_title"><a href="/2010/10/xonotic-player-interview-kojn/" rel="bookmark" title="Permanent Link to Xonotic player interview: kojn">Xonotic player interview: kojn</a></h2>
+  <div class="timestamp">
+     <small>October 29, 2010 at 12:42 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/xonotic'>xonotic</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>Here is my latest interview. It is with an advanced dueler from Great Britain: kojn. Enjoy!</p>
+<p style="text-align: center;">
+<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="640" height="385" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="allowFullScreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="src" value="http://www.youtube.com/v/l-U24-U7wDk?fs=1&amp;hl=en_US" /><param name="allowfullscreen" value="true" /><embed type="application/x-shockwave-flash" width="640" height="385" src="http://www.youtube.com/v/l-U24-U7wDk?fs=1&amp;hl=en_US" allowscriptaccess="always" allowfullscreen="true"></embed></object>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2010/10/xonotic-player-interview-kojn/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+ <a href="/category/blog/4">« Previous Page</a>
+  --  
+ <a href="/category/blog/6">Next Page »</a>
+
+    </div> <!-- end main -->
+
+    <div id="footer">
+        
+  Copyright © 2009-2011 Ant Zucaro. Proudly powered by <a href="http://www.blogofile.com">Blogofile</a>.
+
+
+    </div> <!-- end footer -->
+  </body>
+</html>
+
+
+
+
+
+
+

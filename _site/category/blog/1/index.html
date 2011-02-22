@@ -1,0 +1,459 @@
+
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    
+  <title>Random Thoughts and Geekery</title>
+
+    
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed" />
+<link rel="alternate" type="application/atom+xml" title="Atom 1.0"
+href="/feed/atom" />
+<link rel="stylesheet" href="/css/reset.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/shCore.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/shThemeDefault.css" type="text/css" media="screen"/>
+
+<script type="text/javascript" src="/js/shCore.js"></script>
+<script type="text/javascript" src="/js/shBrushBash.js"></script>
+<script type="text/javascript" src="/js/shBrushPerl.js"></script>
+<script type="text/javascript" src="/js/shBrushPython.js"></script>
+<script type="text/javascript" src="/js/shBrushSql.js"></script>
+<script type="text/javascript">
+SyntaxHighlighter.all()
+</script>
+
+
+  </head>
+  <body>
+    <div id="header">
+        
+  <h1><a href="/"><span style="color:#333333">Random <span style="color:#cc3333">Thoughts</span> and Geekery</span></a></h1>
+<div id="description">by Ant Zucaro</div>
+
+
+    </div> <!-- end header -->
+
+    <div id="sidebar">
+        
+  <ul id="nav">
+   <li><a href="/about.html">about</a></li>
+   <li><a href="/family">family</a></li>
+   <li><a href="/photography">photography</a></li>
+   <li><a href="/archive">archive</a></li>
+   <li><a href="/feed">feed</a></li>
+</ul>
+
+
+    </div> <!-- end sidebar -->
+
+    <div id="main">
+        
+  
+<div class="blog_post">
+  <a name="last.fm-and-moc"></a>
+  <h2 class="blog_post_title"><a href="/2011/02/last-fm-and-moc/" rel="bookmark" title="Permanent Link to Last.fm and MOC">Last.fm and MOC</a></h2>
+  <div class="timestamp">
+     <small>February 02, 2011 at 08:55 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/geekery'>geekery</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>I'm a big fan of <a href="http://www.last.fm">Last.fm</a>. For those not aware, it is a music recommendation service. It does its recommendations based on your own listening patterns; it watches the tracks you play on your computer and compares it to those played by other people sharing common artists. As an example, Last.fm recommends that I check out the band Catch 22 (who I do not have in my music library) based on the number of times I've played songs by Less Than Jake and because other people who have listened to Less Than Jake listen to Catch 22. Pretty cool.</p>
+<p>One thing that is critical to the entire Last.fm experience is the connection between the music player you use and the Last.fm servers that make the recommendations. If you don't have that connection, you won't get any recommendations! Forming the bridge between the two is something called a <em>scrobbler; </em>the scrobbler is the piece of software that watches what you're playing on your music player and sends that information over to the recommendation servers. Last.fm provides a scrobbler client for both Windows and Mac as a free download. Although not officially supported, Linux users can still participate with plugins for many popular players (Amarok, Rhythmbox, Audacious).</p>
+<p>Even Linux music players without ready-made plugins can use the service through a software package called <a href="http://www.red-bean.com/decklin/lastfmsubmitd/">lastfmsubmitd</a>. This software package sets up a generic way for players to send data over to Last.fm via the standard client/server model familiar to most Linux users. Here's how I set it up with MOC, a popular command-line music player.
+<h3>Get the lastfmsubmitd package</h3>
+I run Ubuntu on my home theater PC, which is where I play most of my music at home. To install lastfmsubmitd there I ran the following:</p>
+<pre class="brush:bash;">ï»¿sudo apt-get install lastfmsubmitd</pre>
+
+<p>During the installation you'll be asked several straightforward questions (username, password), after which you'll be left with a running lastfmsubmitd daemon. Check to make sure it is up and running with:</p>
+<pre class="brush:bash;">ps -ef | grep lastfmsubmit[d]</pre>
+
+<p>You should see a process running under that name. If not, the following should get you up and running:</p>
+<pre class="brush:bash;">sudo /etc/init.d/lastfmsubmitd start</pre>
+
+<p>The next step is hooking up your player to submit information to lastfmsubmitd.
+<h3>Change your MOC configuration</h3>
+MOC is my music player of choice, and unfortunately it is one that doesn't have a prebuilt plugin for Last.fm. Instead I have to add the following in my ~/.moc/config file to make MOC submit the songs I play to lastfmsubmitd:</p>
+<pre class="brush:bash;">OnSongChange = &quot;/usr/lib/lastfmsubmitd/lastfmsubmit --artist %a --title %t --length %d --album %r&quot;</pre>
+
+<p>What this does is submit each song to lastfmsubmitd when you start playing it. lastfmsubmitd then submits the song data to the actual Last.fm servers using its own built in submission client (that's the /usr/lib/lastfmsubmitd/lastfmsubmit part). Take note that this method sends data <em>right when the song changes</em>. If you are a habitual song-changer and don't feel like spamming Last.fm with songs that you really haven't listened to fully, check out Luke Plant's submission script <a href="http://lukeplant.me.uk/blog/posts/moc-and-last-fm/">here</a>, as it may suit you better. I rarely skip around in songs, so I just stick with the default submission client (the one in the OnSongChange config above) .
+<h3>Restart and Verify!</h3>
+You have to completely restart MOC before the configuration option goes into effect. Take care to kill the process if it is still running after you've exited to the terminal, as MOC is a server process. Once you've verified that the process is gone, fire up 'mocp' again and play a song or two. Check your Last.fm profile page shortly after you start the song. If you see it showing up in the list, you're in business!</p>
+<div class="wp-caption aligncenter" style="width: 630px"><a href="http://media.antzucaro.com/uploads/2011/02/verified.png"><img class="size-full wp-image-650" title="Verified!" src="http://media.antzucaro.com/uploads/2011/02/verified.png" alt="Verified!" width="630" height="435" /></a><p class="wp-caption-text">Verified!</p></div>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2011/02/last-fm-and-moc/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="planning-ahead-for-mysql-partitioning"></a>
+  <h2 class="blog_post_title"><a href="/2011/01/planning-ahead-for-mysql-partitioning/" rel="bookmark" title="Permanent Link to Planning ahead for MySQL partitioning">Planning ahead for MySQL partitioning</a></h2>
+  <div class="timestamp">
+     <small>January 30, 2011 at 05:05 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/geekery'>geekery</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  
+<h3>The Scenario</h3>
+Let's suppose you are modeling a database in MySQL 5.5. Based on your knowledge of the requirements for the application <em>behind </em>this database you can guess which of the tables within it are going to be huge. For those huge tables you want to plan ahead to make sure that you can scale out your data such that you have less headaches in the future. Here's the catch: you want to keep it simple until it comes time to scale out. That sounds like an honorable goal, right? Now how exactly do we do that...hmm. This post is how I would approach this problem. I hope you can gain something from it. I certainly learned some things in trying to get this stuff to work!
+
+To ground this problem scenario into something concrete let's assume that we're modeling a simple relationship - players and games in a multiplayer game. Here's the model that we're after:
+
+<div class="wp-caption aligncenter" style="width: 559px"><span style="font-size: x-small;"><a href="http://media.antzucaro.com/uploads/2011/01/normal_relationship.png"><img class="size-full wp-image-613" title="Multiplayer game ER diagram" src="http://media.antzucaro.com/uploads/2011/01/normal_relationship.png" alt="Multiplayer game ER diagram" width="559" height="149" /></a></span><p class="wp-caption-text">Multiplayer game ER diagram</p></div>
+
+Here is the DDL to create this model:
+
+<pre class="brush:sql;">
+CREATE  TABLE IF NOT EXISTS `parttest`.`player` (
+`player_id` INT NOT NULL ,
+`name` VARCHAR(30) NULL ,
+PRIMARY KEY (`player_id`) )
+ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `parttest`.`game` (
+`game_id` INT NOT NULL ,
+`duration` TIME NULL ,
+`start_dt` TIMESTAMP NOT NULL ,
+PRIMARY KEY (`game_id`) )
+ENGINE = InnoDB;
+
+CREATE  TABLE IF NOT EXISTS `parttest`.`player_game` (
+`player_id` INT NOT NULL ,
+`game_id` INT NOT NULL ,
+`create_dt` TIMESTAMP NOT NULL ,
+PRIMARY KEY (`player_id`, `game_id`) ,
+INDEX `player_game_fk01` (`player_id` ASC) ,
+INDEX `player_game_fk02` (`game_id` ASC) ,
+CONSTRAINT `player_game_fk01`
+FOREIGN KEY (`player_id` )
+REFERENCES `parttest`.`player` (`player_id` )
+ON DELETE NO ACTION
+ON UPDATE NO ACTION,
+CONSTRAINT `player_game_fk02`
+FOREIGN KEY (`game_id` )
+REFERENCES `parttest`.`game` (`game_id` )
+ON DELETE NO ACTION
+ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+</pre>
+
+In this model we have players and games. Many players can participate in a single game and many games can be played by a single player, thus the two tables "player" and "game" have a many-to-many relationship. To represent that in the database we have an associative table ("player_game") between the two. Also included in two of the tables are columns that track when something happened.
+
+For the sake of this example let's assume that there won't be too many players, but those limited amount of players will play the game feverishly (it's an addictive open source game with a small community). That means that the "game" table and the associative "player_game" table will be pretty large as time goes by - those are the two tables that we'll want to make scalable for the future. We'll want the option to easily <em>partition </em>them at some point down the line.
+<h3>Enter Partitioning</h3>
+Wait, wait, wait. <em>Partitioning</em>? What the heck is that for? I won't bore you with too many details (you can find out more <a href="http://en.wikipedia.org/wiki/Partition_(database)">here</a> and <a href="http://dev.mysql.com/doc/refman/5.5/en/partitioning.html">here</a>), so let's just say that partitioning is a way to split up your database tables in to smaller pieces so that operations upon them can be faster (in most situations that is the goal, at least). Partitions provide the following benefits (this is some, not all):
+<ul>
+	<li>Maintenance â€“ when you split up 	tables into partitions you can often do maintenance on them such 	that you only affect a small amount of your users at a time. Having 	partitions also allows you to easily implement a pruning or 	archiving strategies depending on how you split the data. If you 	split up your tables based upon create timestamp, for example, you 	can easily drop or move older data (the ones that aren't queried as 	often as the newer ones) via a singleo command.</li>
+	<li>Query performance â€“ running 	queries against large datasets most often causes problems. When the 	data is partitioned the database can â€œautomagicallyâ€ determine 	which partitions aren't involved in queries; it can tell which 	partitions aren't involved in the WHERE clause of your SQL 	statements, thus it doesn't need to scan them. That means you 	traverse less data to get the information your query needs, which in 	turn equals faster performance! Of course this only applies if the 	WHERE clause of the queries in question can avoid partitions. If you 	are grabbing everything from a table partitioning obviously won't 	help you.</li>
+	<li>Availability â€“ partitions can be 	split onto different physical media, which means your table is still 	partially available even if one of those media sources goes down. 	This also has impacts with respect to maintenance (see above).</li>
+</ul>
+<h3>Implemention (some hurdles to jump)</h3>
+Back to the example. Since we know that the â€œgameâ€ and â€œplayer_gameâ€ tables are going to be big, let's see how to set ourselves up for easy partitioning in the future. The goal here is to get to a partitioned table with a minimum number of ALTER TABLE statements. Ideally we'd have only one ALTER TABLE â€“ to add partitioning! Let's project ourselves into the future to the point in time when our data is so large that we are forced to consider partitioning. Fortunately for us our tables have no data in them, which makes our tests quick and relatively painless.
+
+Given the initial DDL, the first step would be to try the obvious: alter the table to add partitioning! Let's give that a try:
+
+<pre class="brush:sql;">ALTER TABLE game
+
+PARTITION BY RANGE(unix_timestamp(start_dt)) (
+
+PARTITION part0 VALUES LESS THAN (unix_timestamp('2011-01-01 00:00:00')),
+
+PARTITION part1 VALUES LESS THAN (unix_timestamp('2011-01-02 00:00:00')),
+
+PARTITION part2 VALUES LESS THAN (unix_timestamp('2011-01-03 00:00:00')),
+
+PARTITION part3 VALUES LESS THAN (unix_timestamp('2011-01-04 00:00:00')),
+
+PARTITION part4 VALUES LESS THAN (unix_timestamp('2011-01-05 00:00:00')));
+
+</pre>
+
+Okay, that failed with the following. Bummer:
+
+[code]ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key constraint fails[/code]
+
+The only table in our model with foreign keys is â€œplayer_game,â€ so let's remove those constraints to move forward. Let's do that:
+
+<pre class="brush:sql;">alter table player_game drop foreign key player_game_fk01;
+alter table player_game drop foreign key player_game_fk02;</pre>
+
+We can now try to partition again. We run the same alter as before and get the following:
+
+[code]ERROR 1503 (HY000): A PRIMARY KEY must include all columns in the table's partitioning function[/code]
+
+Argh! What in the world does this mean? Looking up this error leads us to <a href="http://dev.mysql.com/doc/refman/5.5/en/partitioning-limitations-partitioning-keys-unique-keys.html">this entry</a> in the manual which tells us why. In short: you can't partition a table using a column that is not included in the primary key for that table. Since the â€œstart_dtâ€ column isn't in our primary key, we couldn't proceed with our alter. Okay, so let's add it:
+
+<pre class="brush:sql;">ALTER TABLE game DROP PRIMARY KEY;
+
+ALTER TABLE game ADD PRIMARY KEY (game_id, start_dt);</pre>
+
+Once more with the alter to partition, as before. Cross your fingers...
+
+[code]Query OK, 0 rows affected (0.05 sec)[/code]
+
+Success! Now all we need to do is the same ALTERs to the player_game table (using the same process we just did) and add back those foreign keys that we dropped earlier. We'll then have our model looking like before but with the added benefit of 5 partitions each for game and player_game.
+
+But wait...
+
+<pre class="brush:sql;">ALTER TABLE player_game ADD CONSTRAINT player_game_fk01 FOREIGN KEY (game_id) REFERENCES game (game_id);
+
+ERROR 1005 (HY000): Can't create table 'parttest.#sql-52b_3e' (errno: 150)</pre>
+
+Again â€“ argh! What is wrong now? Going back to the limitations link from the last error gives us the answer: partitioned tables can't have foreign keys. Yep, you heard me correctly â€“ <strong>partitioned tables can't </strong><strong>be involved in any</strong><strong> foreign keys. </strong>Really, who needs referential integrity anyway? Just kidding, as this <em>really</em> <em>big </em>limitation in my opinion.
+
+Seeing as we've already dropped the foreign keys of the player_game table to get to this point, we don't have anything further to do. To get where we are we had to remove the foreign keys from the tables that we'd be partitioning, and we had to move the column we were partitioning on into the primary key.
+<h3>My recommendations</h3>
+What does all this mean in terms of how to design your tables now, when they aren't in a partitioned state? Here's my recommendations based on what I've seen with partitioning thus far:
+<ul>
+	<li>Build the column you will 	be partitioning on in to 	the primary key from the get-go. Make 	sure the ordering of the primary key (if you will have multiple 	columns at all) makes sense for your query load on the table. Put 	the columns most used in WHERE clauses first.</li>
+	<li>As an alternative to the 	above you can keep your primary key the same but add 	a unique key including all the columns of the primary key plus the 	column you'll partition on. This will help you avoid duplicate 	entries when you want to bring the partitioning column into the 	primary key, but you'll have a few additional steps later (dropping 	and recreate the primary key).</li>
+	<li>Keep the foreign keys in 	the database in place as 	long as you can while it is still available, but plan ahead in the 	application by coding as if they weren't there. 	When the time comes to 	partition you can then be confident that all the data up to that 	point is clean in terms of its referential integrity. You'll also 	have debugged your application to flush out the errors by that time 	(hopefully).</li>
+</ul>
+So those are my recommendations for dealing with MySQL 5.5's partitioning. Obviously I think they can do a lot better with their implementation. Ideally I'd like to have the ability to alter the table and add the partitions regardless of its referential integrity or primary keys. The fact that I have to sacrifice the integrity of the database tables (one of the key strong points of having a relational database in the first place) makes me very hesitant to use it at all.
+<h3>Some Caveats</h3>
+I'm an Oracle DBA, so take this advice with a grain of salt. The stuff in this post is just one solution to the â€œbig dataâ€ problem. Furthermore this is just how I would handle a partitioning situation given the example provided. I'd love to hear some people with more experience chime in on what they do in similar situations.
+
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2011/01/planning-ahead-for-mysql-partitioning/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="backing-up-the-acer-revo-3700"></a>
+  <h2 class="blog_post_title"><a href="/2011/01/backing-up-the-acer-revo-3700/" rel="bookmark" title="Permanent Link to Backing up the Acer Revo 3700">Backing up the Acer Revo 3700</a></h2>
+  <div class="timestamp">
+     <small>January 23, 2011 at 09:41 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/geekery'>geekery</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>In my previous post I told you about my Acer Aspire Revo 3700 - awesome things come in small packages! Unfortunately, as great as the overall package is the default operating system included was Windows 7. That's a definite no-go, as I'm not a fan of anything coming out of Microsoft. Obviously that had to go! Being the practical person I am, I didn't want to blow the Windows software <em>completely</em> away. I wanted to keep a backup copy "just in case." What case, you ask? <em>I don't really know, but I like to keep my options open anyway. </em>Here's how I did it.</p>
+<p>Normally I'd just fire up my handy copy of <a href="http://www.sysresccd.org/Main_Page">SystemRescueCD</a> to do the backup, but the Revo 3700 doesn't have a CD drive. Bummer. I'd have to boot from a USB image instead. On first glance SystemRescueCD's USB disk creation process seemed like too much work, so I looked for another Linux distribution that might work better. After a small bit of research I ended up settling on <a href="http://grml.org/">grml</a>, which is a Debian-based distribution intended for textmode-savvy users. I followed the instructions I found on their <a href="http://grml.org/download/">download</a> page to install the disk image onto my 2GB USB drive:</p>
+<pre class="brush:bash;">dd if=grml_2010.12.iso of=/dev/sdb</pre>
+
+<p>Be careful with that "of=" line if you do this - your USB <em>might not be /dev/sdb</em>! I only have one hard disk on my laptop, so my thumb drives always show up as /dev/sdb when I plug them in. You can verify which letter your thumb drive is by running "dmesg" in your terminal just after you insert the drive. You should see something like this, the bottom of which will tell you the drive identifier of your USB:</p>
+<pre class="brush:bash;">
+ant@longstreet:~% dmesg
+...
+[lots of lines snipped]
+...
+[16937.696105] usb 1-3: new high speed USB device using ehci_hcd and address 2
+[16938.005504] Initializing USB Mass Storage driver...
+[16938.005646] scsi2 : usb-storage 1-3:1.0
+[16938.005760] usbcore: registered new interface driver usb-storage
+[16938.005762] USB Mass Storage support registered.
+[16939.005085] scsi 2:0:0:0: Direct-Access     PNY      USB 2.0 FD       8.02 PQ: 0 ANSI: 0 CCS
+[16939.006616] sd 2:0:0:0: Attached scsi generic sg2 type 0
+[16939.007781] sd 2:0:0:0: [sdb] 15695871 512-byte logical blocks: (8.03 GB/7.48 GiB)
+[16939.008264] sd 2:0:0:0: [sdb] Write Protect is off
+[16939.008273] sd 2:0:0:0: [sdb] Mode Sense: 45 00 00 08
+[16939.008280] sd 2:0:0:0: [sdb] Assuming drive cache: write through
+[16939.012131] sd 2:0:0:0: [sdb] Assuming drive cache: write through
+[16939.012145]  sdb: sdb1
+[16939.015272] sd 2:0:0:0: [sdb] Assuming drive cache: write through
+[16939.015282] sd 2:0:0:0: [sdb] Attached SCSI removable disk
+</pre>
+
+<p>Now back to the backup process. After my dd command finished, I popped my newly-created disk into my Revo. I hit f12 during boot to tell it to boot from USB and I was quickly in business. Speaking of business, my first order was to mount the device on which I would store the backup itself. In my case I was using a USB external hard drive that I mounted with the following command (using the same "dmesg" trick I mentioned above):</p>
+<pre class="brush:bash;">mount /dev/sdb1 /media/backup</pre>
+
+<p>My next task was to back up my partition table. In the event that I had to restore what I was about to back up I would need to know how it was physically laid out. I ran the following to save that sweet, sweet partition table:</p>
+<pre class="brush:bash;">ï»¿ï»¿sfdisk -d /dev/sda &gt; /media/backup/revo_parttable.bak</pre>
+
+<p>My next step was to mount the media needing to be backed up. There were three partitions on the stock Revo image, so I created a mount directory for each partition. Keeping things simple I just named these directories after the partitions themselves (being the simple man I am):</p>
+<pre class="brush:bash;">for i in 1 2 3
+do
+mkdir -p /media/sda${i}
+mount /dev/sda${i} /media/sda${i}
+done</pre>
+
+<p>Having those partitions mounted, next up was backing up the actual data. For this task I used my favorite backup utility DAR (For Disk ARchive). DAR is awesome - really, it deserves its own post (which I am now writing down on my TODO list)! For now, though, I'll just list the commands I used:</p>
+<pre class="brush:bash;">dar  -R /media/sda1 --gzip 1 -s 2G -c /media/backup/revo_sda1_201001
+dar  -R /media/sda2 --gzip 1 -s 2G -c /media/backup/revo_sda2_201001
+dar  -R /media/sda3 --gzip 1 -s 2G -c /media/backup/revo_sda3_201001</pre>
+
+<p>Okay, okay. I'll at least give you a breakdown of those command line switches even if I can't get to talking about DAR in depth (who knows if I will, right?).
+<ul>
+    <li>-R defines the source of your backup. In this case I've mounted each one of the Revo's partitions to a similarly named mount point. Each of those mount points gets backed up.</li>
+    <li>--gzip 1 tells DAR to compress the backup using the gzip algorithm. You can specify the level of compression (from 1 to 10, with 10 yielding the smallest image). Here I've used the lowest level of gzip compression.</li>
+    <li>-s splits the backup into pieces (slices). I've specified 2GB slices, meaning when the current backup slice reaches 2GB it will start working on a new slice with a different name (it appends an incrementing number to the filename before the suffix).</li>
+    <li>-c is the name of the actual backup. It is called a "basename" because the different slices will take on the incrementing number I mentioned above.</li>
+</ul>
+After those dar commands ran above I was left with the following in my backup directory (I mounted this on my laptop, thus /media/usb and not /media/backup). Sweet!</p>
+<pre class="brush:bash;">
+ant@longstreet:~% ls -lthrg /media/usb/*dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:01 /media/usb/revo_sda1_201001.1.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:08 /media/usb/revo_sda1_201001.2.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:14 /media/usb/revo_sda1_201001.3.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:20 /media/usb/revo_sda1_201001.4.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:26 /media/usb/revo_sda1_201001.5.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:33 /media/usb/revo_sda1_201001.6.dar
+-rwxrwxrwx 1 root 420M 2011-01-08 08:34 /media/usb/revo_sda1_201001.7.dar
+-rwxrwxrwx 1 root 8.2M 2011-01-08 08:34 /media/usb/revo_sda2_201001.1.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:43 /media/usb/revo_sda3_201001.1.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:50 /media/usb/revo_sda3_201001.2.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 08:57 /media/usb/revo_sda3_201001.3.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 09:06 /media/usb/revo_sda3_201001.4.dar
+-rwxrwxrwx 1 root 2.0G 2011-01-08 09:15 /media/usb/revo_sda3_201001.5.dar
+</pre>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2011/01/backing-up-the-acer-revo-3700/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="acer-aspire-revo-3700---unboxing"></a>
+  <h2 class="blog_post_title"><a href="/2011/01/acer-aspire-revo-3700-unboxing/" rel="bookmark" title="Permanent Link to Acer Aspire Revo 3700 - unboxing">Acer Aspire Revo 3700 - unboxing</a></h2>
+  <div class="timestamp">
+     <small>January 09, 2011 at 10:32 AM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/geekery'>geekery</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <p>My old HTPC is something that I call a "frankencomputer," meaning it's been upgraded in piecemeal fashion after various OEM parts failed over the years. It may look totally new, but inside it is the same limiting, loud hardware that I started off with circa 2003. I needed some new hotness, so I started looking for something with the following criteria:
+<ul>
+    <li>Small form factor - it had to fit into an entertainment center and <em>look good. </em>I no longer want a huge ATX tower sitting in the middle of an otherwise sexy entertainment center.</li>
+    <li>HD video and audio - it needed to be powerful enough to play 1080p video and decent audio (preferably SPDIF out). The old HTPC could barely play Hulu flash videos on low quality without coughing.</li>
+    <li>Low noise - the old machine sounded like an airplane during takeoff, which is to say <em>not good</em>. Any new machine must be quiet enough so that I don't hear it when something is playing on it.</li>
+    <li>Wireless AND wired - I wanted the possibility to wire a new machine to the network as well as the freedom to connect wirelessly should I want to go that route.</li>
+</ul>
+After a thorough search of Newegg and Amazon I settled on the <a href="http://www.newegg.com/Product/Product.aspx?Item=N82E16883103297">Acer Aspire Revo 3700</a>. It met all of my criteria above with ease (thanks to an nvidia ION graphics processor) and was only $349. Plus, it came with a bluetooth keyboard and mouse - nice! I ordered it last Monday evening and it was on my kitchen table on Thursday:
+<p style="text-align: center;"></p></p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_001.jpg"><img class="size-full wp-image-582" title="Revo inside!" src="http://media.antzucaro.com/uploads/2011/01/Revo_001.jpg" alt="Revo inside!" width="700" height="525" /></a><p class="wp-caption-text">Revo inside!</p></div>
+
+<p>The box felt very solid, and after opening I knew why - the Revo box itself fills the majority of the Newegg box. Only two airbags were used to fill that empty space:
+<p style="text-align: center;"></p></p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_002.jpg"><img class="size-full wp-image-583" title="Hello goodness" src="http://media.antzucaro.com/uploads/2011/01/Revo_002.jpg" alt="Hello goodness" width="700" height="525" /></a><p class="wp-caption-text">Hello goodness</p></div>
+
+<p>After opening up the Revo box itself you can find the keyboard and mouse at the very bottom. I originally thought that I wouldn't be using these, but the small form factor of each of these is making me think twice! Both are smaller than the bluetooth set that I currently use:</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_003.jpg"><img class="size-full wp-image-584" title="Small keyboard and mouse" src="http://media.antzucaro.com/uploads/2011/01/Revo_003.jpg" alt="Small keyboard and mouse" width="700" height="525" /></a><p class="wp-caption-text">Small keyboard and mouse</p></div>
+
+<p>Here's a look at all the parts laid out on the table. Included with the stuff already mentioned is a laptop-like AC adapter, TV mount, vertical stand, some manuals, and of course the box itself. Yes, I was drooling:</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_004.jpg"><img class="size-full wp-image-585" title="All of it splayed out" src="http://media.antzucaro.com/uploads/2011/01/Revo_004.jpg" alt="All of it splayed out" width="700" height="525" /></a><p class="wp-caption-text">All of it splayed out</p></div>
+
+<p>The machine itself has a luster to it. It is dark blue. Here you can see the front of it - it has the SPDIF out, a card reader, and audio ports. On the bottom left you can see a small cleft where the power button is:</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_005.jpg"><img class="size-full wp-image-586" title="Revo Front" src="http://media.antzucaro.com/uploads/2011/01/Revo_005.jpg" alt="Revo Front" width="700" height="525" /></a><p class="wp-caption-text">Revo Front</p></div>
+
+<p>Turning it around 90 degrees you can see a USB on the top front and the plug for another USB nearby. The top also has vents for the super-quiet fan:</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_006.jpg"><img class="size-full wp-image-587" title="Revo Top" src="http://media.antzucaro.com/uploads/2011/01/Revo_006.jpg" alt="Revo Top" width="700" height="525" /></a><p class="wp-caption-text">Revo Top</p></div>
+
+<p>Here's where you see where all the magic happens. The back has all of the other USB ports, HDMI/VGA out, the ethernet port, and the AC adapter input:</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_007.jpg"><img class="size-full wp-image-589" title="Revo Back" src="http://media.antzucaro.com/uploads/2011/01/Revo_007.jpg" alt="Revo Back" width="700" height="525" /></a><p class="wp-caption-text">Revo Back</p></div>
+
+<p>On the bottom you can find some more vents and the slot for the base (which comes with it):</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_008.jpg"><img class="size-full wp-image-590" title="Revo Bottom" src="http://media.antzucaro.com/uploads/2011/01/Revo_008.jpg" alt="Revo Bottom" width="700" height="525" /></a><p class="wp-caption-text">Revo Bottom</p></div>
+
+<p>Here is what it looks like with the stand on it. Sexy, no?</p>
+<div class="wp-caption aligncenter" style="width: 700px"><a href="http://media.antzucaro.com/uploads/2011/01/Revo_009.jpg"><img class="size-full wp-image-591" title="All grown up!" src="http://media.antzucaro.com/uploads/2011/01/Revo_009.jpg" alt="All grown up!" width="700" height="525" /></a><p class="wp-caption-text">All grown up!</p></div>
+
+<p>In my next post I'll go over what I did to backup the original software on the machine in order to prep it for Linux installation. Being that I'm a Linux geek (and seeing that Windows 7 button) you knew I wasn't going to settle with the basic software on it, right?</p>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2011/01/acer-aspire-revo-3700-unboxing/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+  
+<div class="blog_post">
+  <a name="grandpa's-garage"></a>
+  <h2 class="blog_post_title"><a href="/2010/12/grandpas-garage/" rel="bookmark" title="Permanent Link to Grandpa's Garage">Grandpa's Garage</a></h2>
+  <div class="timestamp">
+     <small>December 11, 2010 at 06:52 PM in 
+
+<a href='/category/blog'>blog</a>, <a href='/category/life'>life</a>, <a href='/category/wandering-around'>wandering around</a>
+   </div> <!-- end timestamp and categories -->
+</small><p/>
+  <div class="post_prose">
+    
+  <div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104704.jpg"><img class="size-large wp-image-564" title="Grandpa's Garage" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104704-1024x764.jpg" alt="Grandpa's Garage" width="450" height="335" /></a><p class="wp-caption-text">Grandpa&#39;s Garage</p></div>
+
+<p>Over Thanksgiving holiday I got the chance to briefly hang out at my grandmother's house on Long Island. It felt great to have no work obligations and to just take in the house with the family. One thing I especially like to do when I'm there is to wander around my grandfather's garage.</p>
+<p>Grandpa died seven years ago this month, but his spirit still resides in that garage. It's partly the endless clutter of things (which it seems he saved just for savings sake) and partly the smell of grease and long-gone wood shavings from his work that make it seem special. It's also just neat seeing all of the old hardware and parts for things waiting to be fixed. Rest assured that if anything ever breaks in grandma's house, she'll have a part to fix it at the ready! What's more is that grandpa probably found that part in someones junk, was given the part for free, or otherwise obtained it outside of a store.</p>
+<p>This drawer unit was probably tossed out by his office building when he was working there. Rather than let it go to some dumpster or removal service, he found service for it in the garage (for about 30 years at that):</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104202.jpg"><img class="size-large wp-image-565" title="Drawers" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104202-1024x764.jpg" alt="Drawers" width="450" height="335" /></a><p class="wp-caption-text">Drawers</p></div>
+
+<p>Here's what looks like a repurposed work desk. I don't have any guesses about this one, but you can tell from its worn paint and scratches throughout that it received a lot of love:</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104457.jpg"><img class="size-large wp-image-566" title="Work bench" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104457-1024x764.jpg" alt="Work bench" width="450" height="335" /></a><p class="wp-caption-text">Work bench</p></div>
+
+<p>Here's a set of screwdrivers sitting in manually-drilled holes in a 2x4. Thrifty! Sorry for the blur:</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104533.jpg"><img class="size-large wp-image-567" title="Screwdrivers" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104533-1024x764.jpg" alt="Screwdrivers" width="450" height="335" /></a><p class="wp-caption-text">Screwdrivers</p></div>
+
+<p>Here's a paper towel dispenser mounted on the wall. What I think is cool are those magnets for holding the pencils and pens - I use that same concept on my fridge, albeit with more geeky elements (hard drive magnets)!</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104610-e1292111068477.jpg"><img class="size-large wp-image-568" title="Paper towel dispenser" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104610-e1292111068477-764x1024.jpg" alt="Paper towel dispenser" width="450" height="603" /></a><p class="wp-caption-text">Paper towel dispenser</p></div>
+
+<p>Here's a funny assortment of clips:</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104720.jpg"><img class="size-large wp-image-569" title="Assorted spring-loaded clips" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104720-e1292111229855-764x1024.jpg" alt="Assorted spring-loaded clips" width="450" height="603" /></a><p class="wp-caption-text">Assorted spring-loaded clips</p></div>
+
+<p>...and more spare buckets than you can shake a stick at. Hey, you never know when you need to wash 50 cars at once!</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104803.jpg"><img class="size-large wp-image-570" title="That's a lotta buckets" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104803-e1292111288176-764x1024.jpg" alt="That's a lotta buckets" width="450" height="603" /></a><p class="wp-caption-text">That&#39;s a lotta buckets</p></div>
+
+<p>Dust-laden cans from who knows how long ago. Note the collection of dust:</p>
+<div class="wp-caption aligncenter" style="width: 450px"><a href="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104843.jpg"><img class="size-large wp-image-571" title="Cans from who knows when" src="http://media.antzucaro.com/uploads/2010/12/IMG_20101127_104843-e1292111349726-764x1024.jpg" alt="Cans from who knows when" width="450" height="603" /></a><p class="wp-caption-text">Cans from who knows when</p></div>
+
+<p>The way grandpa lived his life left impressions on all of us in the family, with some impressions being more subtle than the others. As I was cleaning out a jar of pasta sauce the other day, I noticed that it had measurement markings built into the the glass for cups and ounces. I thought to myself "free measuring cup!" and started to clean it off to put in the cupboard. That's grandpa's mentality at work! My wife politely pointed out that we already had two measuring cups and that we had no need for a third, jury-rigged one. Although it was tough to put that jar in the recycling bin, I had to agree with that logic. Maybe I would have felt differently if I had a fantastic garage, like grandpa, in which to store such things!</p>
+<p>ï»¿</p>
+
+  </div>
+</div>
+
+
+
+
+
+  <div class="after_post"><a href="http://www.antzucaro.com/2010/12/grandpas-garage/#disqus_thread">Read and Post Comments</a></div>
+  <hr class="interblog" />
+ <a href="/category/blog/2">Next Page »</a>
+
+    </div> <!-- end main -->
+
+    <div id="footer">
+        
+  Copyright © 2009-2011 Ant Zucaro. Proudly powered by <a href="http://www.blogofile.com">Blogofile</a>.
+
+
+    </div> <!-- end footer -->
+  </body>
+</html>
+
+
+
+
+
+
+

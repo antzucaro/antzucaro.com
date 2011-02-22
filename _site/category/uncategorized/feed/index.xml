@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"
+     xmlns:content="http://purl.org/rss/1.0/modules/content/"
+     xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+     xmlns:atom="http://www.w3.org/2005/Atom"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+     >
+  <channel>
+    <title>Random Thoughts and Geekery</title>
+    <link>http://www.antzucaro.com</link>
+    <description>The musings and ramblings of Ant Zucaro</description>
+    <pubDate>Tue, 22 Feb 2011 14:21:40 GMT</pubDate>
+    <generator>Blogofile</generator>
+    <sy:updatePeriod>hourly</sy:updatePeriod>
+    <sy:updateFrequency>1</sy:updateFrequency>
+    <item>
+      <title>Layla POTD 9/29</title>
+      <link>http://www.antzucaro.com/family/2010/09/layla-potd-929/</link>
+      <pubDate>Wed, 29 Sep 2010 10:51:21 EDT</pubDate>
+      <category><![CDATA[Uncategorized]]></category>
+      <guid>http://www.antzucaro.com/?p=486</guid>
+      <description>Layla POTD 9/29</description>
+      <content:encoded><![CDATA[<img style="display: block; margin-right: auto; margin-left: auto;" src="http://media.antzucaro.com/uploads/2010/11/wpid-IMG_20100929_081212.jpg" alt="image" />]]></content:encoded>
+    </item>
+  </channel>
+</rss>
