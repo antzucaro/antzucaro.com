@@ -12,3 +12,6 @@
 <%def name="title()">
   <title>${post.title} - Random Thoughts and Geekery</title>
 </%def>
+<%def name="header()">
+<div id="header"></div>
+</%def>

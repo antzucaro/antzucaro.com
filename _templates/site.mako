@@ -8,9 +8,7 @@
     ${self.head()}
   </head>
   <body>
-    <div id="header">
-        ${self.header()}
-    </div> <!-- end header -->
+    ${next.header()}
 
     <div id="sidebar">
         ${self.sidebar()}
