@@ -9,10 +9,7 @@
   </head>
   <body>
     ${next.header()}
-
-    <div id="sidebar">
-        ${self.sidebar()}
-    </div> <!-- end sidebar -->
+    ${next.sidebar()}
 
     <div id="main">
         ${next.body()}
@@ -27,15 +24,23 @@
 <%def name="head()">
   <%include file="head.mako" />
 </%def>
+
 <%def name="header()">
+<div id="header">
   <%include file="header.mako" />
+</div>
 </%def>
+
 <%def name="sidebar()">
+<div id="sidebar">
   <%include file="sidebar.mako" />
+</div>
 </%def>
+
 <%def name="footer()">
   <%include file="footer.mako" />
 </%def>
+
 <%def name="title()">
   <title>Random Thoughts and Geekery</title>
 </%def>

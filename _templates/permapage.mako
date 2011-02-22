@@ -15,3 +15,9 @@
 <%def name="header()">
 <div id="header"></div>
 </%def>
+<%def name="sidebar()">
+<div id="sidebar">
+<h2><a href="${bf.util.site_path_helper(bf.config.blog.path)}"><span style="color:#333333">R<span style="color:#cc3333">T</span>AG</span></a></h2>
+<%include file="sidebar.mako" />
+</div>
+</%def>

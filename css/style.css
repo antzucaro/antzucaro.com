@@ -164,6 +164,11 @@ li {
     width: 190px;
 }
 
+#sidebar h2 {
+    margin-bottom: 10px;
+    padding-left: 20px;
+}
+
 #sidebar a {
     color: #999999;
 }
