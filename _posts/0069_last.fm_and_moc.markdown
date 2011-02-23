@@ -14,7 +14,7 @@ Even Linux music players without ready-made plugins can use the service through 
 <h3>Get the lastfmsubmitd package</h3>
 I run Ubuntu on my home theater PC, which is where I play most of my music at home. To install lastfmsubmitd there I ran the following:
 
-<pre class="brush:bash;">ï»¿sudo apt-get install lastfmsubmitd</pre>
+<pre class="brush:bash;">sudo apt-get install lastfmsubmitd</pre>
 
 During the installation you'll be asked several straightforward questions (username, password), after which you'll be left with a running lastfmsubmitd daemon. Check to make sure it is up and running with:
 
