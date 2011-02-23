@@ -1,6 +1,6 @@
 <%inherit file="_templates/site.mako" />
 <div id="archive">
-<h2>Archive</h2><br />
+<h2>Archive</h2>
 
 <% current_year = bf.config.blog.posts[0].date.strftime("%Y") %>
 <h3>${current_year}</h3>
