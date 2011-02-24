@@ -199,6 +199,10 @@ li {
     width: 800px;
 }
 
+.gallery img {
+    padding: 0px 5px 0px 5px;
+}
+
 .timestamp {
     color: #999999;
     font-size: 15px;
