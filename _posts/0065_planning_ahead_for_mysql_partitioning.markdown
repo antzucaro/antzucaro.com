@@ -56,12 +56,12 @@ For the sake of this example let's assume that there won't be too many players, 
 <h3>Enter Partitioning</h3>
 Wait, wait, wait. <em>Partitioning</em>? What the heck is that for? I won't bore you with too many details (you can find out more <a href="http://en.wikipedia.org/wiki/Partition_(database)">here</a> and <a href="http://dev.mysql.com/doc/refman/5.5/en/partitioning.html">here</a>), so let's just say that partitioning is a way to split up your database tables in to smaller pieces so that operations upon them can be faster (in most situations that is the goal, at least). Partitions provide the following benefits (this is some, not all):
 <ul>
-	<li>Maintenance â€“ when you split up 	tables into partitions you can often do maintenance on them such 	that you only affect a small amount of your users at a time. Having 	partitions also allows you to easily implement a pruning or 	archiving strategies depending on how you split the data. If you 	split up your tables based upon create timestamp, for example, you 	can easily drop or move older data (the ones that aren't queried as 	often as the newer ones) via a singleo command.</li>
-	<li>Query performance â€“ running 	queries against large datasets most often causes problems. When the 	data is partitioned the database can â€œautomagicallyâ€ determine 	which partitions aren't involved in queries; it can tell which 	partitions aren't involved in the WHERE clause of your SQL 	statements, thus it doesn't need to scan them. That means you 	traverse less data to get the information your query needs, which in 	turn equals faster performance! Of course this only applies if the 	WHERE clause of the queries in question can avoid partitions. If you 	are grabbing everything from a table partitioning obviously won't 	help you.</li>
-	<li>Availability â€“ partitions can be 	split onto different physical media, which means your table is still 	partially available even if one of those media sources goes down. 	This also has impacts with respect to maintenance (see above).</li>
+	<li>Maintenance - when you split up 	tables into partitions you can often do maintenance on them such 	that you only affect a small amount of your users at a time. Having 	partitions also allows you to easily implement a pruning or 	archiving strategies depending on how you split the data. If you 	split up your tables based upon create timestamp, for example, you 	can easily drop or move older data (the ones that aren't queried as 	often as the newer ones) via a singleo command.</li>
+	<li>Query performance - running 	queries against large datasets most often causes problems. When the 	data is partitioned the database can â€œautomagicallyâ€ determine 	which partitions aren't involved in queries; it can tell which 	partitions aren't involved in the WHERE clause of your SQL 	statements, thus it doesn't need to scan them. That means you 	traverse less data to get the information your query needs, which in 	turn equals faster performance! Of course this only applies if the 	WHERE clause of the queries in question can avoid partitions. If you 	are grabbing everything from a table partitioning obviously won't 	help you.</li>
+	<li>Availability - partitions can be 	split onto different physical media, which means your table is still 	partially available even if one of those media sources goes down. 	This also has impacts with respect to maintenance (see above).</li>
 </ul>
 <h3>Implemention (some hurdles to jump)</h3>
-Back to the example. Since we know that the â€œgameâ€ and â€œplayer_gameâ€ tables are going to be big, let's see how to set ourselves up for easy partitioning in the future. The goal here is to get to a partitioned table with a minimum number of ALTER TABLE statements. Ideally we'd have only one ALTER TABLE â€“ to add partitioning! Let's project ourselves into the future to the point in time when our data is so large that we are forced to consider partitioning. Fortunately for us our tables have no data in them, which makes our tests quick and relatively painless.
+Back to the example. Since we know that the "game" and "player_game" tables are going to be big, let's see how to set ourselves up for easy partitioning in the future. The goal here is to get to a partitioned table with a minimum number of ALTER TABLE statements. Ideally we'd have only one ALTER TABLE - to add partitioning! Let's project ourselves into the future to the point in time when our data is so large that we are forced to consider partitioning. Fortunately for us our tables have no data in them, which makes our tests quick and relatively painless.
 
 Given the initial DDL, the first step would be to try the obvious: alter the table to add partitioning! Let's give that a try:
 
@@ -85,7 +85,7 @@ Okay, that failed with the following. Bummer:
 
 [code]ERROR 1217 (23000): Cannot delete or update a parent row: a foreign key constraint fails[/code]
 
-The only table in our model with foreign keys is â€œplayer_game,â€ so let's remove those constraints to move forward. Let's do that:
+The only table in our model with foreign keys is "player_game," so let's remove those constraints to move forward. Let's do that:
 
 <pre class="brush:sql;">alter table player_game drop foreign key player_game_fk01;
 alter table player_game drop foreign key player_game_fk02;</pre>
@@ -94,7 +94,7 @@ We can now try to partition again. We run the same alter as before and get the f
 
 [code]ERROR 1503 (HY000): A PRIMARY KEY must include all columns in the table's partitioning function[/code]
 
-Argh! What in the world does this mean? Looking up this error leads us to <a href="http://dev.mysql.com/doc/refman/5.5/en/partitioning-limitations-partitioning-keys-unique-keys.html">this entry</a> in the manual which tells us why. In short: you can't partition a table using a column that is not included in the primary key for that table. Since the â€œstart_dtâ€ column isn't in our primary key, we couldn't proceed with our alter. Okay, so let's add it:
+Argh! What in the world does this mean? Looking up this error leads us to <a href="http://dev.mysql.com/doc/refman/5.5/en/partitioning-limitations-partitioning-keys-unique-keys.html">this entry</a> in the manual which tells us why. In short: you can't partition a table using a column that is not included in the primary key for that table. Since the "start_dt" column isn't in our primary key, we couldn't proceed with our alter. Okay, so let's add it:
 
 <pre class="brush:sql;">ALTER TABLE game DROP PRIMARY KEY;
 
@@ -112,7 +112,7 @@ But wait...
 
 ERROR 1005 (HY000): Can't create table 'parttest.#sql-52b_3e' (errno: 150)</pre>
 
-Again â€“ argh! What is wrong now? Going back to the limitations link from the last error gives us the answer: partitioned tables can't have foreign keys. Yep, you heard me correctly â€“ <strong>partitioned tables can't </strong><strong>be involved in any</strong><strong> foreign keys. </strong>Really, who needs referential integrity anyway? Just kidding, as this <em>really</em> <em>big </em>limitation in my opinion.
+Again - argh! What is wrong now? Going back to the limitations link from the last error gives us the answer: partitioned tables can't have foreign keys. Yep, you heard me correctly - <strong>partitioned tables can't be involved in any foreign keys. </strong>Really, who needs referential integrity anyway? Just kidding, as this <em>really</em> <em>big </em>limitation in my opinion.
 
 Seeing as we've already dropped the foreign keys of the player_game table to get to this point, we don't have anything further to do. To get where we are we had to remove the foreign keys from the tables that we'd be partitioning, and we had to move the column we were partitioning on into the primary key.
 <h3>My recommendations</h3>
@@ -124,4 +124,4 @@ What does all this mean in terms of how to design your tables now, when they are
 </ul>
 So those are my recommendations for dealing with MySQL 5.5's partitioning. Obviously I think they can do a lot better with their implementation. Ideally I'd like to have the ability to alter the table and add the partitions regardless of its referential integrity or primary keys. The fact that I have to sacrifice the integrity of the database tables (one of the key strong points of having a relational database in the first place) makes me very hesitant to use it at all.
 <h3>Some Caveats</h3>
-I'm an Oracle DBA, so take this advice with a grain of salt. The stuff in this post is just one solution to the â€œbig dataâ€ problem. Furthermore this is just how I would handle a partitioning situation given the example provided. I'd love to hear some people with more experience chime in on what they do in similar situations.
+I'm an Oracle DBA, so take this advice with a grain of salt. The stuff in this post is just one solution to the "big data" problem. Furthermore this is just how I would handle a partitioning situation given the example provided. I'd love to hear some people with more experience chime in on what they do in similar situations.
