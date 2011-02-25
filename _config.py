@@ -50,3 +50,26 @@ blog.timezone = "US/Eastern"
 #### Disqus.com comment integration ####
 blog.disqus.enabled = True
 blog.disqus.name    = "antzucaro"
+
+# These are the default ignore patterns for excluding files and dirs
+# from the _site directory
+# These can be strings or compiled patterns.
+# Strings are assumed to be case insensitive.
+site.file_ignore_patterns = [
+    # All files that start with an underscore
+    ".*/_.*",
+    # Emacs temporary files
+    ".*/#.*",
+    # Emacs/Vim temporary files
+    ".*~$",
+    # Vim swap files
+    ".*/\..*\.swp$",
+    # VCS directories
+    ".*/\.(git|hg|svn|bzr)$",
+    # Git and Mercurial ignored files definitions
+    ".*/.(git|hg)ignore$",
+    # CVS dir
+    ".*/CVS$",
+    # fabric file
+    ".*/fabfile.py$",
+    ]
