@@ -3,7 +3,7 @@ from fabric.api import local, settings, abort
 
 BLOG_SRC = '/home/ant/Documents/antzucaro.com/_site/'
 BLOG_DEST = '/home/azucaro/antzucaro.com/public/'
-MEDIA_SRC = '/home/ant/Documents/antzucaro.com/'
+MEDIA_SRC = '/home/ant/Documents/media.antzucaro.com/'
 MEDIA_DEST = '/home/azucaro/media.antzucaro.com/'
 
 def re():
