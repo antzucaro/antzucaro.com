@@ -26,7 +26,7 @@ def sort_into_categories():
 
 def write_categories():
     """Write all the blog posts in categories"""
-    root = bf.util.path_join(blog.path, blog.category_dir)
+    root = bf.util.path_join(blog.path)
     #Find all the categories:
     categories = set()
     for post in blog.posts:
@@ -34,30 +34,26 @@ def write_categories():
     for category, category_posts in blog.categorized_posts.items():
         #Write category RSS feed
         rss_path = bf.util.fs_site_path_helper(
-            blog.path, blog.category_dir,
-            category.url_name, "feed")
+            blog.path, category.url_name, "feed")
         feed.write_feed(category_posts,rss_path, "rss.mako")
         atom_path = bf.util.fs_site_path_helper(
-            blog.path, blog.category_dir,
-            category.url_name, "feed", "atom")
+            blog.path, category.url_name, "feed", "atom")
         feed.write_feed(category_posts, atom_path, "atom.mako")
         page_num = 1
         while True:
-            path = bf.util.path_join(root, category.url_name,
+            path = bf.util.path_join(root, category.url_name, "page",
                                 str(page_num), "index.html")
             page_posts = category_posts[:blog.posts_per_page]
             category_posts = category_posts[blog.posts_per_page:]
             #Forward and back links
             if page_num > 1:
                 prev_link = bf.util.site_path_helper(
-                    blog.path, blog.category_dir, category.url_name,
-                                           str(page_num - 1))
+                    blog.path, category.url_name, "page", str(page_num - 1))
             else:
                 prev_link = None
             if len(category_posts) > 0:
                 next_link = bf.util.site_path_helper(
-                    blog.path, blog.category_dir, category.url_name,
-                                           str(page_num + 1))
+                    blog.path, category.url_name, "page", str(page_num + 1))
             else:
                 next_link = None
             
