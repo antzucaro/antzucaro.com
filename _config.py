@@ -72,4 +72,5 @@ site.file_ignore_patterns = [
     ".*/CVS$",
     # fabric file
     ".*/fabfile.py$",
+    ".*/new_post.py$",
     ]
