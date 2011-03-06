@@ -63,7 +63,7 @@ def options():
     
     if not options.permalink:
         # FIXME: need to bring in the domain name from bf.config
-        options.permalink = "http://antzucaro.com/{0}/{1}"\
+        options.permalink = "http://www.antzucaro.com/{0}/{1}"\
                 .format(datetime.now().strftime('%Y/%m'), sluggify(options.title))
 
     if not options.number:
@@ -80,9 +80,10 @@ def main():
         "title: {0}\n"\
         "date: {1}\n"\
         "categories: {2}\n"\
+        "permalink: {4}\n"\
         "permalink: {3}\n"\
         "---".format(opts.title, opts.date, 
-                opts.categories, opts.permalink)
+                opts.categories, opts.permalink, opts.permalink)
 
     # write the stub for the new post
     filename = '_posts/{0:04d}_{1}.markdown'.format(opts.number, opts.permalink.replace('-', '_').split('/')[-1])
