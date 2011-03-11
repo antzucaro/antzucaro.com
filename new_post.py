@@ -53,7 +53,7 @@ def options():
     
     # set up defaults if we weren't given any
     if not options.date:
-        options.date = datetime.now().strftime('%Y/%m/%d %I:%M:%S %p')
+        options.date = datetime.now().strftime('%Y/%m/%d %I:%M:%S')
     
     if not options.categories:
         options.categories = 'Uncategorized'
@@ -80,7 +80,7 @@ def main():
         "title: {0}\n"\
         "date: {1}\n"\
         "categories: {2}\n"\
-        "permalink: {4}\n"\
+        "guid: {4}\n"\
         "permalink: {3}\n"\
         "---".format(opts.title, opts.date, 
                 opts.categories, opts.permalink, opts.permalink)
