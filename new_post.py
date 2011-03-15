@@ -53,7 +53,7 @@ def options():
     
     # set up defaults if we weren't given any
     if not options.date:
-        options.date = datetime.now().strftime('%Y/%m/%d %I:%M:%S')
+        options.date = datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     
     if not options.categories:
         options.categories = 'Uncategorized'
