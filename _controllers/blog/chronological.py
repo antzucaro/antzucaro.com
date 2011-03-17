@@ -5,20 +5,16 @@ from blogofile.cache import bf
 blog = bf.config.controllers.blog
 
 def run():
-    # find the non-family posts
-    nonfamily_posts = [] 
-    for post in blog.posts:
-        has_family = False
-        for category in post.categories:
-         if 'family' in category.name:
-             has_family = True
-        if has_family == False:
-            nonfamily_posts.append(post)
-    #for post in nonfamily_posts:
-        #print "Added: {0}".format(post.title)
-    write_blog_chron(posts=nonfamily_posts, root=blog.pagination_dir.lstrip("/"))
-    write_blog_first_page(posts=nonfamily_posts)
+    excluded_categories = set()
+    excluded_categories.add('family')
 
+    included_posts = []
+    for post in blog.posts:
+        if len(excluded_categories.intersection(blog.category_names)) == 0:
+            included_posts.append(post)
+
+    write_blog_chron(posts=included_posts, root=blog.pagination_dir.lstrip("/"))
+    write_blog_first_page(posts=included_posts)
 
 def write_blog_chron(posts, root):
     page_num = 1

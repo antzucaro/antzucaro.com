@@ -83,6 +83,7 @@ class Post(object):
         self.date = None
         self.updated = None
         self.categories = set()
+        self.category_names = set()
         self.tags = set()
         self.permalink = None
         self.content = u""
@@ -234,6 +235,8 @@ class Post(object):
             pass
         try:
             self.categories = set([Category(x.strip()) for x in \
+                                       y['categories'].split(",")])
+            self.category_names = set([x.strip() for x in \
                                        y['categories'].split(",")])
         except:
             pass

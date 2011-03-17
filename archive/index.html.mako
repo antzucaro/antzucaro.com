@@ -15,9 +15,8 @@
    % endif
    <%
       has_family = False
-      for category in post.categories:
-         if 'family' in category.name:
-           has_family = True
+      if 'family' in post.category_names:
+        has_family = True
    %>
    % if not has_family:
       <li>${post.date.strftime("%m/%d")}: <a href="${post.permapath()}">${post.title}</a> <span class="categories">[
