@@ -10,7 +10,7 @@ def run():
 
     included_posts = []
     for post in blog.posts:
-        if len(excluded_categories.intersection(blog.category_names)) == 0:
+        if len(excluded_categories.intersection(post.category_names)) == 0:
             included_posts.append(post)
 
     write_blog_chron(posts=included_posts, root=blog.pagination_dir.lstrip("/"))
