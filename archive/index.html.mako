@@ -27,7 +27,7 @@
            #For drafts, we don't write to the category dirs, so just write the categories as text
            category_links.append(category.name)
        else:
-           category_links.append("<a href='%s'>%s</a>" % (category.path, category.name))
+           category_links.append("<a href='/%s'>%s</a>" % (category.name.replace(' ', '-'), category.name))
 %>
 ${", ".join(category_links)}]</span></li>
    % endif
