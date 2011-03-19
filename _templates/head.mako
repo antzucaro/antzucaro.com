@@ -8,7 +8,9 @@ href="/feed/atom" />
 
 <script type="text/javascript" src="/js/head.load.min.js"></script>
 <script>
-    head.js("/js/shCore.js", 
+    head.js("/js/jquery-1.5.1.min.js",
+            "/js/jquery.timeago.js", 
+            "/js/shCore.js", 
             "/js/shBrushBash.js", 
             "/js/shBrushPerl.js", 
             "/js/shBrushPython.js", 
@@ -26,4 +28,8 @@ href="/feed/atom" />
                 })();
             }
     );
+
+    head.ready(function() {
+        jQuery("abbr.timeago").timeago();  
+    });
 </script>

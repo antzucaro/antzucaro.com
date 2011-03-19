@@ -3,7 +3,7 @@
   <a name="${post.slug}"></a>
   <h2 class="blog_post_title"><a href="${post.permapath()}" rel="bookmark" title="Permanent Link to ${post.title}">${post.title}</a></h2>
   <div class="timestamp">
-     <small>${post.date.strftime("%B %d, %Y at %I:%M %p")} in 
+     <small><abbr class="timeago" title="${post.date.strftime("%Y-%m-%d %H:%M")}">${post.date.strftime("%B %d, %Y at %I:%M %p")}</abbr> at ${post.date.strftime("%I:%M %p")} in 
 <% 
    category_links = []
    for category in post.categories:
