@@ -90,6 +90,7 @@ def main():
     f = open(filename, 'w')
     f.write(yaml)
     f.close()
+    print "Created {0}".format(filename)
 
 if __name__ == "__main__":
     main()
