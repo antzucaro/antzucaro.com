@@ -7,7 +7,7 @@ permalink: http://www.antzucaro.com/2012/03/baltimore-aquarium
 ---
 Yesterday we went to the Baltimore Aquarium with my parents. What a
 fantastic trip! We started off the day at about 7AM, packing everyone
-into the Ford and scooting off as fast as we could towards I-95. The
+into the Ford at 8AM and scooting off as fast as we could towards I-95. The
 Aquarium has a slot-based approach to tickets, and each slot lasts for
 about 30 minutes. Our slot was for 9:30, which meant we had just over an
 hour to get there from Sterling. Given the rush we stopped at Dunkin
@@ -51,6 +51,6 @@ music videos, so I was at least entertained. Layla was dead tired by
 this time, though, and she fell asleep in Pa's lap until the food
 arrived. 
 
-We went home and Mom's job was to keep Layla awake for the car ride. The
+We went home and Nanny's job was to keep Layla awake for the car ride. The
 technique worked and we were all rewarded with a much-needed nap! It was
 a good capstone to a day well spent. 
