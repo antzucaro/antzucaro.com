@@ -23,7 +23,7 @@ all of the words we told her in her best drone voice: "ray," "shark"!
 
 Making our way up the escalators (which were awesome, given the building
 is rather small horizontally but huge vertically) we saw her favorite
-thing of the day: a huge loggerhead turtle we hadn't seen down below. It
+thing of the day: a huge green sea turtle we hadn't seen down below. It
 cruised around the area with only one front fin, which told us it was
 probably a rescue. They began to feed it lettuce and Layla told us the
 play by play! She even said "turtle eating leaf," which made our jaws
@@ -31,8 +31,9 @@ drop. On this second floor we also saw a "Nemo" fish (clownfish), a Nautilus,
 and an octopus. 
 
 Going up a floor we went into the rainforest area, which was super humid
-for what we were wearing. We didn't see too many animals or birds there,
-which was a bit disappointing. We did see an orange monkey and a sloth
+for what we were wearing. We didn't see too many animals there,
+which was a bit disappointing. The one bird we did see had a
+piercing "fox call" that made us want to leave immediately. We did see an orange monkey and a sloth
 way up in the treetop, though. We moved on pretty quickly because we
 were so uncomfortable. 
 
