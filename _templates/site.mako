@@ -1,24 +1,43 @@
 <%inherit file="base.mako" />
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ant Zucaro's personal blog and photography.">
+    <meta name="author" content="Ant Zucaro">
     ${next.title()}
     ${self.head()}
   </head>
   <body>
-    ${next.header()}
-    ${next.sidebar()}
+    <div class="container">
+      <!-- HEADER -->
+      ${next.header()}
 
-    <div id="main">
-        ${next.body()}
-    </div> <!-- end main -->
 
-    <div id="footer">
-        ${self.footer()}
-    </div> <!-- end footer -->
-    <!-- Google Analytics -->
+      <!-- CONTENT -->
+      <div class="row">
+        <div class="span8">
+          ${next.body()}
+        </div> <!-- END MAIN -->
+
+      <!-- SIDEBAR -->
+      ${next.sidebar()}
+
+      </div> <!-- END CONTENT -->
+
+
+      <!-- FOOTER -->
+      <div class="row">
+        <div class="span12">
+          ${self.footer()}
+        </div> <!-- END FOOTER -->
+      </div> <!-- END ROW -->
+
+
+    </div> <!-- END CONTAINER -->
+
+    <!-- GOOGLE ANALYTICS -->
     <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-1465952-2']);
@@ -37,15 +56,17 @@
 </%def>
 
 <%def name="header()">
-<div id="header">
-  <%include file="header.mako" />
-</div>
+      <div class="row">
+        <div class="span12">
+          <%include file="header.mako" />
+        </div>
+      </div>
 </%def>
 
 <%def name="sidebar()">
-<div id="sidebar">
-  <%include file="sidebar.mako" />
-</div>
+      <div class="span3">
+        <%include file="sidebar.mako" />
+      </div> <!-- END SIDEBAR -->
 </%def>
 
 <%def name="footer()">
@@ -53,5 +74,5 @@
 </%def>
 
 <%def name="title()">
-  <title>Random Thoughts and Geekery</title>
+  <title>Ant Zucaro.com</title>
 </%def>
