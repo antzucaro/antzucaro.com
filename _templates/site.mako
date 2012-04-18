@@ -74,5 +74,5 @@
 </%def>
 
 <%def name="title()">
-  <title>Ant Zucaro.com</title>
+  <title>Random Thoughts and Geekery</title>
 </%def>
