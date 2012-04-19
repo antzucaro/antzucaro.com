@@ -1,6 +1,6 @@
 <%inherit file="_templates/site.mako" />
 <h2>About Me</h2>
-<p>Hello! I'm Ant. I'm a 28 year old database administrator working out of Northern Virginia. I'm big into free software, and can be found fiddling with various pieces of code daily. Sometimes I come up with fun shortcuts or nuggets of "hacker-like" value that I'll put up here.</p>
+<p>Hello! I'm Ant. I'm a 29 year old database administrator working out of Northern Virginia. I'm big into free software, and can be found fiddling with various pieces of code daily. Sometimes I come up with fun shortcuts or nuggets of "hacker-like" value that I'll put up here.</p>
 
 <p>A big piece of my life is being a dad and a husband. I really enjoy spending time with my beautiful wife Kristin and our happy baby girl Layla. We spend our weekends driving all around the Washington DC metro area looking for fun things to do.</p>
 
