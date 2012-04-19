@@ -21,6 +21,6 @@
     );
 
     head.ready(function() {
-        jQuery("abbr.timeago").timeago();  
+        jQuery("span.timeago").timeago();  
     });
 </script>

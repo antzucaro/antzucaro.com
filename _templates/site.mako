@@ -29,7 +29,7 @@
 
       <!-- FOOTER -->
       <div class="row">
-        <div class="span12">
+        <div class="span8">
           ${self.footer()}
         </div> <!-- END FOOTER -->
       </div> <!-- END ROW -->
