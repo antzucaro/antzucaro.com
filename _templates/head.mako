@@ -2,6 +2,7 @@
 <link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="/feed/atom" />
 <link rel="stylesheet" href="/css/style.css" type="text/css" media="screen"/>
 <link rel="stylesheet" href="/css/style-responsive.css" type="text/css" media="screen"/>
+<link rel="stylesheet" href="/css/font-awesome.css" type="text/css" media="screen"/>
 <link rel="stylesheet" href="/css/shCore.css" type="text/css" media="screen"/>
 <link rel="stylesheet" href="/css/shThemeDefault.css" type="text/css" media="screen"/>
 

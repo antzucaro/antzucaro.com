@@ -411,6 +411,13 @@ h6 {
   color: #999999;
   text-transform: uppercase;
 }
+h1 a, h2 a {
+  color: #333333;
+}
+h1 a:hover, h2 a:hover {
+  color: #0066CC;
+  text-decoration: none;
+}
 .page-header {
   padding-bottom: 17px;
   margin: 18px 0;
@@ -4001,4 +4008,22 @@ a.thumbnail:hover {
 }
 .invisible {
   visibility: hidden;
+}
+
+/* Ant's Custom Stuff */
+#nav { font-family: "MuseoSlab500","Helvetica Neue",Helvetica,Arial,sans-serif; }
+#nav ul {
+  font-size: 24px;
+  list-style: none outside none; 
+  margin-left: -5px;
+}
+#nav li {
+  line-height: 30px; 
+}
+#nav li a {
+  color: #CC6666;
+}
+#nav li a:hover {
+  color: #CC3333;
+  text-decoration: none; 
 }
