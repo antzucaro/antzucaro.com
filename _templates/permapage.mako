@@ -22,11 +22,7 @@
   <title>${post.title} - Random Thoughts and Geekery</title>
 </%def>
 
-<%def name="header()">
-</%def>
 
 <%def name="sidebar()">
-        <div class="span4">
-          <%include file="sidebar.mako" />
-        </div>
+  <%include file="sidebar.mako" />
 </%def>

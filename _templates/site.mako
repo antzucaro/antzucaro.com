@@ -12,24 +12,26 @@
   <body>
     <div class="container">
       <!-- HEADER -->
-      ${next.header()}
+      <div class="row">
+        <div class="span10 offset1">
+          ${next.header()}
+          ${next.sidebar()}
+        </div>
+      </div> <!-- END HEADER -->
 
 
       <!-- CONTENT -->
       <div class="row">
-        <div class="span8">
+        <div class="span10 offset1">
           ${next.body()}
         </div> <!-- END MAIN -->
-
-      <!-- SIDEBAR -->
-      ${next.sidebar()}
 
       </div> <!-- END CONTENT -->
 
 
       <!-- FOOTER -->
       <div class="row">
-        <div class="span8">
+        <div class="span10">
           ${self.footer()}
         </div> <!-- END FOOTER -->
       </div> <!-- END ROW -->
@@ -56,17 +58,11 @@
 </%def>
 
 <%def name="header()">
-      <div class="row">
-        <div class="span12">
-          <%include file="header.mako" />
-        </div>
-      </div>
+  <%include file="header.mako" />
 </%def>
 
 <%def name="sidebar()">
-      <div class="span3">
-        <%include file="sidebar.mako" />
-      </div> <!-- END SIDEBAR -->
+  <%include file="sidebar.mako" />
 </%def>
 
 <%def name="footer()">

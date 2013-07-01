@@ -10,6 +10,18 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'LinuxLibertineORegular';
+    src: url('../fonts/LinLibertine_R-webfont.eot');
+    src: url('../fonts/LinLibertine_R-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/LinLibertine_R-webfont.woff') format('woff'),
+         url('../fonts/LinLibertine_R-webfont.ttf') format('truetype'),
+         url('../fonts/LinLibertine_R-webfont.svg#LinuxLibertineORegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 
 /*!
  * Bootstrap v2.0.2
@@ -145,8 +157,8 @@ textarea {
 }
 body {
   margin: 0;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-family: "LinuxLibertineORegular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
   line-height: 21px;
   color: #333333;
   background-color: #ffffff;
@@ -336,12 +348,12 @@ a:hover {
 }
 p {
   margin: 0 0 9px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 24px;
+  font-family: "LinuxLibertineORegular","Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 30px;
 }
 p small {
-  font-size: 11px;
+  font-size: 16px;
   color: #999999;
 }
 .lead {
@@ -443,7 +455,7 @@ ol {
   list-style: decimal;
 }
 li {
-  line-height: 18px;
+  line-height: 30px;
 }
 ul.unstyled,
 ol.unstyled {
@@ -4010,14 +4022,17 @@ a.thumbnail:hover {
 }
 
 /* Ant's Custom Stuff */
+#header h1 { font-size: 34px; }
 #nav { font-family: "MuseoSlab500","Helvetica Neue",Helvetica,Arial,sans-serif; }
 #nav ul {
   font-size: 20px;
   list-style: none outside none; 
-  margin-left: -5px;
+  margin-left: 0px;
 }
 #nav li {
+  display: inline;
   line-height: 30px; 
+  padding-right: 10px;
 }
 #nav li a {
   color: #CC6666;
@@ -4041,4 +4056,7 @@ a.thumbnail:hover {
   margin: 10px;
   padding-top: 4px;
   text-align: center;
+}
+.wp-caption-text {
+  font-size: 16px;
 }
