@@ -31,7 +31,7 @@
 
       <!-- FOOTER -->
       <div class="row">
-        <div class="span10">
+        <div class="span10 offset1">
           ${self.footer()}
         </div> <!-- END FOOTER -->
       </div> <!-- END ROW -->
