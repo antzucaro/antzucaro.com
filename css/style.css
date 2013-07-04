@@ -4049,14 +4049,22 @@ a.thumbnail:hover {
   color: #999999;
   font-size: 18px;
 }
+.aligncenter {
+    margin-left: auto;
+    margin-right: auto;
+}
 .wp-caption {
-  background-color: #F3F3F3;
-  border: 1px solid #DDDDDD;
-  border-radius: 3px 3px 3px 3px;
-  margin: 10px;
-  padding-top: 4px;
+  margin-bottom: 10px;
   text-align: center;
 }
 .wp-caption-text {
   font-size: 16px;
+}
+.wp-caption img {
+  background-color: #F3F3F3;
+  border: 1px solid #DDDDDD;
+  border-radius: 3px 3px 3px 3px;
+  max-width: 100%;
+  padding: 4px 4px 4px 4px;
+  text-align: center;
 }
