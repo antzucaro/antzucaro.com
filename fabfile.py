@@ -17,8 +17,8 @@ def reserve():
     serve()
 
 def syncmedia():
-    local("rsync -av {0} azucaro@antzucaro.com:{1}".format(MEDIA_SRC, MEDIA_DEST), capture=False)
+    local("rsync --size-only -av {0} azucaro@antzucaro.com:{1}".format(MEDIA_SRC, MEDIA_DEST), capture=False)
 
 def deploy():
-    local("rsync -av {0} azucaro@antzucaro.com:{1}".format(MEDIA_SRC, MEDIA_DEST), capture=False)
-    local("rsync -av {0} azucaro@antzucaro.com:{1}".format(BLOG_SRC, BLOG_DEST), capture=False)
+    local("rsync --size-only -av {0} azucaro@antzucaro.com:{1}".format(MEDIA_SRC, MEDIA_DEST), capture=False)
+    local("rsync --size-only -av {0} azucaro@antzucaro.com:{1}".format(BLOG_SRC, BLOG_DEST), capture=False)
